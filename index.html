@@ -1,0 +1,3431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alphanaut Orientation Manual v0.5 - AlphaX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #0A2463;
+            --cyan: #00B4D8;
+            --teal: #118AB2;
+            --dark: #1a1f3a;
+            --charcoal: #2B2D42;
+            --white: #FFFFFF;
+            --light-gray: #EDF2F4;
+            --gold: #FFD700;
+            --purple: #9B59B6;
+            --orange: #FF6B35;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f1419;
+            color: var(--white);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Scroll Progress Indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: var(--cyan);
+            z-index: 1000;
+            transition: width 0.1s;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 36, 99, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            z-index: 999;
+            border-bottom: 2px solid var(--cyan);
+            transition: all 0.3s;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-logo .alpha {
+            color: var(--cyan);
+            font-size: 28px;
+        }
+
+        .nav-pages {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-page {
+            background: transparent;
+            border: 2px solid var(--cyan);
+            color: var(--cyan);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .nav-page:hover, .nav-page.active {
+            background: var(--cyan);
+            color: var(--navy);
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        section {
+            min-height: 100vh;
+            padding: 100px 20px;
+            position: relative;
+            scroll-margin-top: 80px;
+        }
+
+        /* Cover Section */
+        .cover-section {
+            background: linear-gradient(135deg, #0A2463 0%, #1a2f5c 50%, #0d3b66 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* Animated Background Elements */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .network-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .network-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            animation: pulse 4s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.6; }
+        }
+
+        .cover-content {
+            text-align: center;
+            z-index: 10;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cover-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 72px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .cover-title .the { font-size: 36px; display: block; margin-bottom: 20px; }
+        .cover-title .alpha { color: var(--cyan); }
+
+        .alpha-logo-large {
+            width: 300px;
+            height: 300px;
+            margin: 40px auto;
+            position: relative;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .alpha-circle {
+            width: 300px;
+            height: 300px;
+            border: 4px solid var(--cyan);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .pillar-icon {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: var(--navy);
+            border: 3px solid var(--cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .pillar-icon:nth-child(2) { top: 0; left: 50%; transform: translateX(-50%); }
+        .pillar-icon:nth-child(3) { bottom: 40px; left: 20px; }
+        .pillar-icon:nth-child(4) { bottom: 40px; right: 20px; }
+
+        .alpha-letter {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 120px;
+            font-weight: 700;
+            color: var(--cyan);
+            text-shadow: 0 0 40px rgba(0, 180, 216, 0.6);
+        }
+
+        .cover-subtitle {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--cyan);
+            margin: 30px 0;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .cover-version {
+            font-size: 18px;
+            color: var(--light-gray);
+            margin: 10px 0;
+        }
+
+        .cover-org {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .start-button {
+            background: var(--cyan);
+            color: var(--navy);
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            margin-top: 40px;
+            transition: all 0.3s;
+            font-family: 'Space Grotesk', sans-serif;
+            box-shadow: 0 10px 30px rgba(0, 180, 216, 0.4);
+        }
+
+        .start-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 180, 216, 0.6);
+        }
+
+        /* Content Sections */
+        .content-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid var(--cyan);
+        }
+
+        .section-number {
+            font-size: 14px;
+            color: var(--cyan);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .section-title-main {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--light-gray);
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(10, 36, 99, 0.4) 0%, rgba(17, 138, 178, 0.2) 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid var(--cyan);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--cyan);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 180, 216, 0.3);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--cyan);
+            margin-bottom: 15px;
+        }
+
+        .card-text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--light-gray);
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .column {
+            background: rgba(10, 36, 99, 0.3);
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid rgba(0, 180, 216, 0.3);
+            transition: all 0.3s;
+        }
+
+        .column:hover {
+            border-color: var(--cyan);
+            transform: translateY(-2px);
+        }
+
+        /* Cycle Diagram */
+        .cycle-diagram {
+            width: 400px;
+            height: 400px;
+            margin: 40px auto;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .cycle-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            background: var(--navy);
+            border: 4px solid var(--cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 700;
+            font-size: 18px;
+            z-index: 10;
+            box-shadow: 0 0 20px rgba(0, 180, 216, 0.3);
+        }
+
+        .cycle-node {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: var(--teal);
+            border: 3px solid var(--cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px;
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 0 15px rgba(0, 180, 216, 0.2);
+        }
+
+        .cycle-node:nth-child(2) { top: 0; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
+        .cycle-node:nth-child(3) { top: 50%; right: 0; transform: translateY(-50%); animation-delay: 0.5s; }
+        .cycle-node:nth-child(4) { bottom: 0; left: 50%; transform: translateX(-50%); animation-delay: 1s; }
+        .cycle-node:nth-child(5) { top: 50%; left: 0; transform: translateY(-50%); animation-delay: 1.5s; }
+
+        /* Lists */
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 12px 0 12px 40px;
+            position: relative;
+            font-size: 16px;
+            line-height: 1.6;
+            transition: all 0.3s;
+        }
+
+        .checklist li:hover {
+            color: var(--cyan);
+            transform: translateX(5px);
+        }
+
+        .checklist li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--cyan);
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .checklist.negative li::before {
+            content: '✗';
+            color: #ff4444;
+        }
+
+        /* Q&A Section */
+        .qa-item {
+            background: rgba(10, 36, 99, 0.3);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid var(--cyan);
+            transition: all 0.3s;
+        }
+
+        .qa-item:hover {
+            transform: translateX(10px);
+            border-left-color: var(--cyan);
+            box-shadow: 5px 0 15px rgba(0, 180, 216, 0.2);
+        }
+
+        .qa-question {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--cyan);
+            margin-bottom: 12px;
+        }
+
+        .qa-answer {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--light-gray);
+        }
+
+        /* Values Grid */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .value-pillar {
+            background: linear-gradient(180deg, var(--navy) 0%, var(--teal) 100%);
+            padding: 30px 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid var(--cyan);
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-pillar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--cyan);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .value-pillar:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 180, 216, 0.3);
+        }
+
+        .value-pillar:hover::before {
+            transform: scaleX(1);
+        }
+
+        .value-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--cyan);
+            margin-bottom: 15px;
+        }
+
+        .value-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--white);
+        }
+
+        /* Code Shield */
+        .code-shield {
+            width: 250px;
+            height: 280px;
+            margin: 40px auto;
+            position: relative;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .shield-shape {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--teal) 100%);
+            clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0% 80%, 0% 20%);
+            border: 3px solid var(--cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px rgba(0, 180, 216, 0.3);
+        }
+
+        .shield-alpha {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 120px;
+            font-weight: 700;
+            color: var(--cyan);
+            text-shadow: 0 0 20px rgba(0, 180, 216, 0.5);
+        }
+
+        .code-list {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .code-item {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--cyan);
+            margin: 15px 0;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .code-item:hover {
+            transform: translateX(20px);
+            color: var(--white);
+        }
+
+        .code-item .number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--cyan);
+            color: var(--navy);
+            border-radius: 50%;
+            line-height: 30px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        /* Decision Flow */
+        .decision-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .flow-step {
+            background: linear-gradient(135deg, rgba(10, 36, 99, 0.8), rgba(17, 138, 178, 0.6));
+            border: 2px solid var(--cyan);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            width: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 180, 216, 0.2);
+        }
+
+        .flow-step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--cyan);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 180, 216, 0.4);
+            border-color: var(--gold);
+        }
+
+        .flow-step:hover::before {
+            transform: scaleX(1);
+        }
+
+        .step-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--cyan);
+            margin-bottom: 10px;
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 180, 216, 0.2);
+            border: 2px solid var(--cyan);
+            border-radius: 50%;
+            line-height: 36px;
+        }
+
+        .step-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .step-desc {
+            font-size: 14px;
+            color: var(--light-gray);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .step-process {
+            font-size: 14px;
+            color: var(--light-gray);
+            line-height: 1.5;
+            border-top: 1px solid rgba(0, 180, 216, 0.3);
+            padding-top: 15px;
+        }
+
+        .flow-arrow {
+            font-size: 32px;
+            color: var(--cyan);
+            font-weight: 700;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Enhanced Values Grid with Clear 3D Cards */
+        .value-pillar {
+            background: linear-gradient(180deg, var(--navy) 0%, var(--teal) 100%);
+            padding: 30px 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid var(--cyan);
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .value-pillar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--cyan);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .value-pillar:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 180, 216, 0.4);
+            border-color: var(--gold);
+        }
+
+        .value-pillar:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Enhanced Cards with Clear 3D Effects */
+        .card {
+            background: linear-gradient(135deg, rgba(10, 36, 99, 0.4) 0%, rgba(17, 138, 178, 0.2) 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid var(--cyan);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--cyan), var(--gold), var(--purple));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 180, 216, 0.4);
+            border-color: var(--gold);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Enhanced Values Grid with Clear 3D Cards */
+        .value-pillar {
+            background: linear-gradient(180deg, var(--navy) 0%, var(--teal) 100%);
+            padding: 30px 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid var(--cyan);
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .value-pillar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--cyan);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .value-pillar:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 180, 216, 0.4);
+            border-color: var(--gold);
+        }
+
+        .value-pillar:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Enhanced Cards with Clear 3D Effects */
+        .card {
+            background: linear-gradient(135deg, rgba(10, 36, 99, 0.4) 0%, rgba(17, 138, 178, 0.2) 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid var(--cyan);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--cyan), var(--gold), var(--purple));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 180, 216, 0.4);
+            border-color: var(--gold);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Enhanced Cycle Diagram with Clear Orbit */
+        .cycle-diagram {
+            width: 450px;
+            height: 450px;
+            margin: 40px auto;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .cycle-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160px;
+            height: 160px;
+            background: var(--navy);
+            border: 4px solid var(--cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 700;
+            font-size: 18px;
+            z-index: 10;
+            box-shadow: 0 0 30px rgba(0, 180, 216, 0.5);
+            animation: pulse-center 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-center {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 180, 216, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(0, 180, 216, 0.8); }
+        }
+
+        .cycle-node {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: var(--teal);
+            border: 3px solid var(--cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px;
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(0, 180, 216, 0.3);
+            transition: all 0.3s;
+        }
+
+        .cycle-node:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 180, 216, 0.6);
+            border-color: var(--gold);
+        }
+
+        .cycle-node:nth-child(2) { top: 0; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
+        .cycle-node:nth-child(3) { top: 50%; right: 0; transform: translateY(-50%); animation-delay: 0.5s; }
+        .cycle-node:nth-child(4) { bottom: 0; left: 50%; transform: translateX(-50%); animation-delay: 1s; }
+        .cycle-node:nth-child(5) { top: 50%; left: 0; transform: translateY(-50%); animation-delay: 1.5s; }
+
+        /* Enhanced Values Grid with 3D Cards */
+        .value-pillar {
+            background: linear-gradient(180deg, var(--navy) 0%, var(--teal) 100%);
+            padding: 30px 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid var(--cyan);
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .value-pillar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--cyan);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .value-pillar:hover {
+            transform: translateY(-10px) translateZ(20px);
+            box-shadow: 0 20px 40px rgba(0, 180, 216, 0.4);
+            border-color: var(--gold);
+        }
+
+        .value-pillar:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Enhanced Cards with 3D Effects */
+        .card {
+            background: linear-gradient(135deg, rgba(10, 36, 99, 0.4) 0%, rgba(17, 138, 178, 0.2) 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid var(--cyan);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--cyan), var(--gold), var(--purple));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) translateZ(15px);
+            box-shadow: 0 15px 35px rgba(0, 180, 216, 0.4);
+            border-color: var(--gold);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Enhanced Cycle Diagram with 3D Orbit */
+        .cycle-diagram {
+            width: 500px;
+            height: 500px;
+            margin: 40px auto;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+            perspective: 1000px;
+        }
+
+        .cycle-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) translateZ(50px);
+            width: 180px;
+            height: 180px;
+            background: var(--navy);
+            border: 4px solid var(--cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 700;
+            font-size: 20px;
+            z-index: 10;
+            box-shadow: 0 0 30px rgba(0, 180, 216, 0.5);
+            animation: pulse-center 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-center {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 180, 216, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(0, 180, 216, 0.8); }
+        }
+
+        .cycle-node {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            background: var(--teal);
+            border: 3px solid var(--cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px;
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(0, 180, 216, 0.3);
+            transform-style: preserve-3d;
+            transition: all 0.3s;
+        }
+
+        .cycle-node:hover {
+            transform: scale(1.1) translateZ(20px);
+            box-shadow: 0 0 30px rgba(0, 180, 216, 0.6);
+            border-color: var(--gold);
+        }
+
+        .cycle-node:nth-child(2) { top: 0; left: 50%; transform: translateX(-50%) translateZ(30px); animation-delay: 0s; }
+        .cycle-node:nth-child(3) { top: 50%; right: 0; transform: translateY(-50%) translateZ(40px); animation-delay: 0.5s; }
+        .cycle-node:nth-child(4) { bottom: 0; left: 50%; transform: translateX(-50%) translateZ(30px); animation-delay: 1s; }
+        .cycle-node:nth-child(5) { top: 50%; left: 0; transform: translateY(-50%) translateZ(40px); animation-delay: 1.5s; }
+
+        /* Enhanced Cover with Particle Effects */
+        .cover-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(0, 180, 216, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Enhanced Navigation with Glow */
+        .nav-page:hover, .nav-page.active {
+            background: var(--cyan);
+            color: var(--navy);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(0, 180, 216, 0.5);
+            border-color: var(--gold);
+        }
+
+        /* Signature Box with Enhanced Effects */
+        .signature-box:hover {
+            background: rgba(10, 36, 99, 0.4);
+            border-color: var(--gold);
+            box-shadow: 0 0 30px rgba(0, 180, 216, 0.3);
+            transform: translateY(-5px);
+        }
+
+        /* Enhanced Alert Box */
+        .alert-box {
+            background: linear-gradient(135deg, rgba(43, 45, 66, 0.9), rgba(10, 36, 99, 0.8));
+            border: 3px solid #ff4444;
+            padding: 30px;
+            border-radius: 16px;
+            margin: 30px 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(255, 68, 68, 0.2);
+        }
+
+        .alert-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #ff4444, #ff6b35, #ff4444);
+            box-shadow: 0 0 15px rgba(255, 68, 68, 0.6);
+        }
+
+        .alert-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 68, 68, 0.1);
+            border-radius: 50%;
+            transform: translate(20px, -20px);
+            border: 2px solid rgba(255, 68, 68, 0.3);
+        }
+
+        .alert-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 50px rgba(255, 68, 68, 0.3);
+            border-color: #ff6b35;
+        }
+
+        .alert-box .alert-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #ff4444;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .alert-box .alert-title::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 20px;
+            background: #ff4444;
+            border-radius: 2px;
+        }
+
+        .alert-box .alert-title .alert-icon {
+            font-size: 28px;
+            animation: pulse-warning 2s infinite;
+        }
+
+        @keyframes pulse-warning {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .alert-box .alert-content {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--light-gray);
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .alert-box .alert-content::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #ff4444, #ff6b35);
+            border-radius: 2px;
+        }
+
+        .alert-box .alert-content p {
+            margin-bottom: 15px;
+        }
+
+        .alert-box .alert-content strong {
+            color: #ff4444;
+            font-weight: 700;
+        }
+
+        .alert-box .alert-content ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .alert-box .alert-content li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .alert-box .alert-content li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #ff4444;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .alert-box .alert-content .consequence {
+            background: rgba(255, 107, 53, 0.1);
+            border-left: 3px solid #ff6b35;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-weight: 700;
+            color: #ff6b35;
+        }
+
+        .alert-box .alert-content .culture-note {
+            background: rgba(0, 180, 216, 0.1);
+            border-left: 3px solid var(--cyan);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-weight: 600;
+            color: var(--cyan);
+            font-style: italic;
+        }
+
+        /* Enhanced Final Section - The Frontier */
+        .final-section {
+            background: linear-gradient(135deg, #0A2463 0%, #1a2f5c 50%, #0d3b66 100%);
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Animated Background Elements for Final Section */
+        .final-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(0, 180, 216, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+            animation: pulse-final 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse-final {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        /* Floating Particles for Final Section */
+        .final-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(0, 180, 216, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(155, 89, 182, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+            animation: float-final 15s ease-in-out infinite;
+        }
+
+        @keyframes float-final {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .final-content {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .final-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 80px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--cyan), var(--gold), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            animation: title-glow 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(0, 180, 216, 0.3);
+        }
+
+        @keyframes title-glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(0, 180, 216, 0.3); }
+            50% { text-shadow: 0 0 40px rgba(0, 180, 216, 0.8); }
+        }
+
+        .final-subtitle {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .final-subtitle::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--cyan), var(--gold));
+            border-radius: 2px;
+        }
+
+        .final-text {
+            font-size: 18px;
+            line-height: 1.9;
+            margin: 30px 0;
+            color: var(--light-gray);
+            font-weight: 500;
+        }
+
+        .final-text strong {
+            color: var(--cyan);
+            font-weight: 700;
+        }
+
+        /* Enhanced Mission Cards */
+        .mission-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .mission-card {
+            background: linear-gradient(135deg, rgba(10, 36, 99, 0.8), rgba(17, 138, 178, 0.4));
+            border: 2px solid var(--cyan);
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .mission-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--cyan), var(--gold), var(--purple));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 180, 216, 0.3);
+            border-color: var(--gold);
+        }
+
+        .mission-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .mission-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .mission-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--cyan);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .mission-desc {
+            font-size: 14px;
+            color: var(--light-gray);
+            line-height: 1.6;
+        }
+
+        /* Enhanced Signature Section */
+        .signature-line {
+            margin: 80px auto;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .signature-box {
+            border: 3px dashed var(--cyan);
+            padding: 40px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(10, 36, 99, 0.6), rgba(17, 138, 178, 0.3));
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 180, 216, 0.2);
+        }
+
+        .signature-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--cyan), var(--gold));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .signature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 180, 216, 0.4);
+            border-color: var(--gold);
+            background: linear-gradient(135deg, rgba(10, 36, 99, 0.8), rgba(17, 138, 178, 0.5));
+        }
+
+        .signature-box:hover::before {
+            transform: scaleX(1);
+        }
+
+        .signature-label {
+            font-size: 16px;
+            color: var(--cyan);
+            margin-bottom: 25px;
+            text-align: left;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .signature-name {
+            border-bottom: 2px solid var(--cyan);
+            padding: 12px 0;
+            margin-bottom: 20px;
+            font-size: 18px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .signature-name:focus {
+            outline: none;
+            border-bottom-color: var(--gold);
+            box-shadow: 0 2px 0 var(--gold);
+        }
+
+        .signature-date {
+            font-size: 14px;
+            color: var(--light-gray);
+            text-align: right;
+            font-style: italic;
+        }
+
+        /* Final Call to Action */
+        .final-cta {
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(0, 180, 216, 0.1);
+            border: 2px solid var(--cyan);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--cyan), var(--gold), var(--purple));
+        }
+
+        .final-message {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--cyan);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .final-quote {
+            font-size: 18px;
+            font-style: italic;
+            color: var(--light-gray);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .final-signature {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            text-align: center;
+            margin-top: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Floating Elements for Final Section */
+        .final-floating {
+            position: absolute;
+            opacity: 0.1;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        .final-floating:nth-child(1) { top: 10%; left: 10%; font-size: 80px; animation-delay: 0s; }
+        .final-floating:nth-child(2) { top: 20%; right: 10%; font-size: 60px; animation-delay: 1s; }
+        .final-floating:nth-child(3) { bottom: 20%; left: 15%; font-size: 70px; animation-delay: 2s; }
+        .final-floating:nth-child(4) { bottom: 30%; right: 15%; font-size: 50px; animation-delay: 3s; }
+        .final-floating:nth-child(5) { top: 60%; left: 5%; font-size: 40px; animation-delay: 0.5s; }
+        .final-floating:nth-child(6) { top: 40%; right: 5%; font-size: 45px; animation-delay: 2.5s; }
+
+        /* Enhanced Code Principles Styling */
+        .code-list-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .code-item-vertical {
+            background: linear-gradient(135deg, rgba(10, 36, 99, 0.8), rgba(17, 138, 178, 0.4));
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 2px solid transparent;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .code-item-vertical::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--cyan), var(--gold), var(--purple));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .code-item-vertical:hover {
+            transform: translateX(20px) translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 180, 216, 0.3);
+            border-color: var(--gold);
+        }
+
+        .code-item-vertical:hover::before {
+            transform: scaleX(1);
+        }
+
+        .code-item-vertical::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -50px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+
+        .code-item-vertical:hover::after {
+            opacity: 1;
+            right: -30px;
+        }
+
+        .code-header-vertical {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .code-number-vertical {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 3;
+            transition: all 0.3s ease;
+        }
+
+        .code-item-vertical:hover .code-number-vertical {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .code-title-vertical {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .code-item-vertical:hover .code-title-vertical {
+            transform: translateX(10px);
+            text-shadow: 0 0 20px rgba(0, 180, 216, 0.5);
+        }
+
+        .code-desc-vertical {
+            font-size: 16px;
+            color: var(--light-gray);
+            line-height: 1.7;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+            padding-left: 70px;
+        }
+
+        .code-item-vertical:hover .code-desc-vertical {
+            color: var(--white);
+            transform: translateX(10px);
+        }
+
+        /* Enhanced Cycle Explanation Styling */
+        .cycle-explanation {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(0, 180, 216, 0.1), rgba(255, 215, 0, 0.05));
+            border: 2px solid var(--cyan);
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 30px rgba(0, 180, 216, 0.2);
+        }
+
+        .cycle-explanation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--cyan), var(--gold), var(--purple));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .cycle-explanation:hover::before {
+            transform: scaleX(1);
+        }
+
+        .cycle-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--light-gray);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .cycle-explanation:hover .cycle-text {
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .cycle-text strong {
+            color: var(--cyan);
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(0, 180, 216, 0.3);
+        }
+
+        /* Enhanced Why You Matter Section */
+        .why-you-matter-section {
+            margin-top: 60px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .why-you-matter-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--cyan);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .why-you-matter-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--cyan), var(--gold));
+            border-radius: 2px;
+        }
+
+        .why-you-matter-content {
+            font-size: 18px;
+            line-height: 1.9;
+            color: var(--light-gray);
+            margin-bottom: 20px;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+        }
+
+        .why-you-matter-content strong {
+            color: var(--cyan);
+            font-size: 20px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .why-you-matter-subtitle {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--cyan);
+            margin-top: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .why-you-matter-subtitle::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--cyan), var(--gold), var(--purple));
+            border-radius: 2px;
+        }
+
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) { top: 10%; left: 10%; font-size: 120px; }
+        .floating-element:nth-child(2) { top: 20%; right: 10%; font-size: 80px; animation-delay: 1s; }
+        .floating-element:nth-child(3) { bottom: 20%; left: 15%; font-size: 100px; animation-delay: 2s; }
+        .floating-element:nth-child(4) { bottom: 30%; right: 15%; font-size: 90px; animation-delay: 3s; }
+
+        /* Enhanced Why You Matter Section */
+        .why-you-matter-section {
+            margin-top: 60px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .why-you-matter-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--cyan);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
+            animation: title-glow 3s ease-in-out infinite;
+        }
+
+        .why-you-matter-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--cyan), var(--gold));
+            border-radius: 2px;
+        }
+
+        .why-you-matter-content {
+            font-size: 18px;
+            line-height: 1.9;
+            color: var(--light-gray);
+            margin-bottom: 20px;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .why-you-matter-content:hover {
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .why-you-matter-content strong {
+            color: var(--cyan);
+            font-size: 20px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-top: 10px;
+            text-shadow: 0 0 10px rgba(0, 180, 216, 0.3);
+            animation: pulse-text 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-text {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        .why-you-matter-subtitle {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--cyan);
+            margin-top: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .why-you-matter-subtitle::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--cyan), var(--gold), var(--purple));
+            border-radius: 2px;
+        }
+
+        .site-logo {
+  /* Adjust the height to fit your header (usually between 40px and 80px) */
+        height: 50px; 
+        width: auto; /* Keeps the aspect ratio perfect */
+        display: block;
+}
+
+        .logo-link {
+        text-decoration: none;
+        display: inline-block;
+}
+
+        /* Enhanced Mobile Responsiveness */
+        @media (max-width: 768px) {
+            /* Cover Section */
+            .cover-title {
+                font-size: 42px;
+                line-height: 1.2;
+            }
+            
+            .cover-title .the {
+                font-size: 28px;
+                margin-bottom: 15px;
+            }
+            
+            .alpha-logo-large {
+                width: 250px;
+                height: 250px;
+                margin: 30px auto;
+            }
+            
+            .alpha-circle {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .pillar-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+            
+            .pillar-icon:nth-child(2) { top: 0; left: 50%; transform: translateX(-50%); }
+            .pillar-icon:nth-child(3) { bottom: 30px; left: 15px; }
+            .pillar-icon:nth-child(4) { bottom: 30px; right: 15px; }
+            
+            .alpha-letter {
+                font-size: 100px;
+            }
+            
+            .cover-subtitle {
+                font-size: 32px;
+            }
+            
+            .start-button {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+
+            /* Content Sections */
+            .content-section {
+                padding: 40px 15px;
+            }
+            
+            .section-header {
+                margin-bottom: 40px;
+            }
+            
+            .section-title-main {
+                font-size: 32px;
+            }
+            
+            .section-subtitle {
+                font-size: 16px;
+            }
+
+            /* Two Column Layout */
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            /* Cards Grid */
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .card-icon {
+                font-size: 36px;
+                margin-bottom: 15px;
+            }
+            
+            .card-title {
+                font-size: 20px;
+            }
+            
+            .card-text {
+                font-size: 14px;
+            }
+
+            /* Cycle Diagram */
+            .cycle-diagram {
+                width: 300px;
+                height: 300px;
+                margin: 30px auto;
+            }
+            
+            .cycle-center {
+                width: 120px;
+                height: 120px;
+                font-size: 16px;
+            }
+            
+            .cycle-node {
+                width: 100px;
+                height: 100px;
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            /* Values Grid */
+            .values-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .value-pillar {
+                min-height: 150px;
+                padding: 20px 15px;
+            }
+            
+            .value-name {
+                font-size: 20px;
+            }
+            
+            .value-desc {
+                font-size: 13px;
+            }
+
+            /* Code Principles */
+            .code-list-vertical {
+                gap: 20px;
+                padding: 15px;
+            }
+            
+            .code-item-vertical {
+                padding: 20px;
+            }
+            
+            .code-header-vertical {
+                gap: 15px;
+            }
+            
+            .code-number-vertical {
+                width: 40px;
+                height: 40px;
+                font-size: 22px;
+            }
+            
+            .code-title-vertical {
+                font-size: 22px;
+            }
+            
+            .code-desc-vertical {
+                font-size: 14px;
+                padding-left: 55px;
+            }
+
+            /* Decision Flow */
+            .decision-flow {
+                gap: 15px;
+            }
+            
+            .flow-step {
+                padding: 20px;
+            }
+            
+            .step-number {
+                width: 35px;
+                height: 35px;
+                font-size: 20px;
+                line-height: 31px;
+            }
+            
+            .step-title {
+                font-size: 18px;
+            }
+            
+            .step-desc {
+                font-size: 13px;
+            }
+            
+            .step-process {
+                font-size: 13px;
+            }
+
+            /* Q&A Section */
+            .qa-item {
+                padding: 20px;
+            }
+            
+            .qa-question {
+                font-size: 18px;
+            }
+            
+            .qa-answer {
+                font-size: 14px;
+            }
+
+            /* Checklists */
+            .checklist li {
+                padding: 10px 0 10px 30px;
+                font-size: 14px;
+            }
+            
+            .checklist li::before {
+                font-size: 16px;
+            }
+
+            /* Enhanced Why You Matter Section */
+            .why-you-matter-section {
+                margin-top: 40px;
+            }
+            
+            .why-you-matter-title {
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+            
+            .why-you-matter-title::after {
+                width: 80px;
+                height: 3px;
+            }
+            
+            .why-you-matter-content {
+                font-size: 16px;
+                line-height: 1.7;
+            }
+            
+            .why-you-matter-content strong {
+                font-size: 18px;
+            }
+            
+            .why-you-matter-subtitle {
+                font-size: 18px;
+                margin-top: 30px;
+            }
+            
+            .why-you-matter-subtitle::after {
+                width: 120px;
+                height: 2px;
+            }
+
+            /* Enhanced Cycle Explanation */
+            .cycle-explanation {
+                padding: 20px;
+            }
+            
+            .cycle-text {
+                font-size: 16px;
+                line-height: 1.7;
+            }
+
+            /* Final Section */
+            .final-title {
+                font-size: 42px;
+            }
+            
+            .final-subtitle {
+                font-size: 24px;
+            }
+            
+            .final-text {
+                font-size: 16px;
+                line-height: 1.7;
+            }
+            
+            .final-content {
+                padding: 60px 20px;
+            }
+
+            /* Mission Cards */
+            .mission-cards {
+                gap: 20px;
+            }
+            
+            .mission-card {
+                padding: 20px;
+            }
+            
+            .mission-icon {
+                font-size: 32px;
+                margin-bottom: 12px;
+            }
+            
+            .mission-title {
+                font-size: 18px;
+            }
+            
+            .mission-desc {
+                font-size: 13px;
+            }
+
+            /* Signature Section */
+            .signature-line {
+                margin: 40px auto;
+                max-width: 100%;
+            }
+            
+            .signature-box {
+                padding: 25px;
+            }
+            
+            .signature-label {
+                font-size: 14px;
+                margin-bottom: 15px;
+            }
+            
+            .signature-name {
+                font-size: 16px;
+                padding: 8px 0;
+                margin-bottom: 15px;
+            }
+            
+            .signature-date {
+                font-size: 12px;
+            }
+
+            /* Navigation */
+            .nav-bar {
+                padding: 12px 15px;
+            }
+            
+            .nav-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-logo {
+                font-size: 20px;
+            }
+            
+            .nav-logo .alpha {
+                font-size: 24px;
+            }
+            
+            .nav-pages {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-page {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            /* Floating Elements */
+            .floating-element {
+                display: none;
+            }
+
+            /* Stars and Network Effects */
+            .stars {
+                display: none;
+            }
+            
+            .network-bg {
+                display: none;
+            }
+
+            /* Sections Padding */
+            section {
+                padding: 80px 15px;
+                min-height: auto;
+            }
+        }
+
+        /* Tablet Responsiveness */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .cycle-diagram {
+                width: 350px;
+                height: 350px;
+            }
+            
+            .code-list-vertical {
+                max-width: 500px;
+            }
+        }
+
+        /* Small Mobile Devices */
+        @media (max-width: 480px) {
+            .cover-title {
+                font-size: 36px;
+            }
+            
+            .cover-title .the {
+                font-size: 24px;
+            }
+            
+            .alpha-logo-large {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .alpha-circle {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .pillar-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            
+            .alpha-letter {
+                font-size: 80px;
+            }
+            
+            .cover-subtitle {
+                font-size: 28px;
+            }
+            
+            .start-button {
+                padding: 10px 25px;
+                font-size: 14px;
+            }
+            
+            .content-section {
+                padding: 30px 10px;
+            }
+            
+            .section-title-main {
+                font-size: 28px;
+            }
+            
+            .cycle-diagram {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .cycle-center {
+                width: 100px;
+                height: 100px;
+                font-size: 14px;
+            }
+            
+            .cycle-node {
+                width: 80px;
+                height: 80px;
+                font-size: 11px;
+                padding: 6px;
+            }
+            
+            .final-title {
+                font-size: 36px;
+            }
+            
+            .final-subtitle {
+                font-size: 20px;
+            }
+            
+            .signature-box {
+                padding: 20px;
+            }
+        }
+
+        /* Very Small Devices */
+        @media (max-width: 360px) {
+            .cover-title {
+                font-size: 32px;
+            }
+            
+            .cover-title .the {
+                font-size: 20px;
+            }
+            
+            .alpha-logo-large {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .alpha-circle {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .alpha-letter {
+                font-size: 70px;
+            }
+            
+            .cover-subtitle {
+                font-size: 24px;
+            }
+            
+            .start-button {
+                padding: 8px 20px;
+                font-size: 12px;
+            }
+            
+            .content-section {
+                padding: 25px 8px;
+            }
+            
+            .section-title-main {
+                font-size: 24px;
+            }
+            
+            .cycle-diagram {
+                width: 220px;
+                height: 220px;
+            }
+            
+            .cycle-center {
+                width: 80px;
+                height: 80px;
+                font-size: 12px;
+            }
+            
+            .cycle-node {
+                width: 70px;
+                height: 70px;
+                font-size: 10px;
+                padding: 5px;
+            }
+            
+            .final-title {
+                font-size: 32px;
+            }
+            
+            .final-subtitle {
+                font-size: 18px;
+            }
+        }
+
+        /* Landscape Mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .cover-section {
+                min-height: 80vh;
+                padding: 40px 20px;
+            }
+            
+            .cover-content {
+                padding: 20px;
+            }
+            
+            .alpha-logo-large {
+                width: 200px;
+                height: 200px;
+                margin: 20px auto;
+            }
+            
+            .final-content {
+                padding: 40px 20px;
+            }
+        }
+
+        /* Touch-friendly enhancements */
+        @media (hover: none) and (pointer: coarse) {
+            /* Increase touch targets */
+            .nav-page {
+                min-height: 44px;
+                min-width: 44px;
+                padding: 12px 16px;
+            }
+            
+            .start-button {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            /* Reduce animations for better performance */
+            .card, .value-pillar, .code-item-vertical {
+                transition: none;
+            }
+            
+            .card:hover, .value-pillar:hover, .code-item-vertical:hover {
+                transform: none;
+            }
+            
+            /* Remove heavy animations */
+            .floating-element, .star, .network-line {
+                animation: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <div class="nav-bar">
+        <div class="nav-content">
+            <div class="nav-logo">
+                <span >AlphaX</span>
+                
+            </div>
+            <div class="nav-pages">
+                <a href="#cover" class="nav-page active">Cover</a>
+                <a href="#you-are-here" class="nav-page">You're Here</a>
+                <a href="#who-you-are" class="nav-page">Who You Are</a>
+                <a href="#real-talk" class="nav-page">Real Talk</a>
+                <a href="#the-code" class="nav-page">The Code</a>
+                <a href="#frontier" class="nav-page">Frontier</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cover Section -->
+    <section id="cover" class="cover-section">
+        <!-- Stars Background -->
+        <div class="stars">
+            <div class="star" style="top: 10%; left: 15%; animation-delay: 0s;"></div>
+            <div class="star" style="top: 20%; left: 80%; animation-delay: 0.5s;"></div>
+            <div class="star" style="top: 40%; left: 25%; animation-delay: 1s;"></div>
+            <div class="star" style="top: 60%; left: 70%; animation-delay: 1.5s;"></div>
+            <div class="star" style="top: 80%; left: 40%; animation-delay: 2s;"></div>
+            <div class="star" style="top: 30%; left: 60%; animation-delay: 2.5s;"></div>
+            <div class="star" style="top: 70%; left: 20%; animation-delay: 0.8s;"></div>
+            <div class="star" style="top: 50%; left: 85%; animation-delay: 1.2s;"></div>
+        </div>
+
+        <!-- Network Lines -->
+        <div class="network-bg">
+            <div class="network-line" style="top: 20%; left: 10%; width: 200px; transform: rotate(45deg);"></div>
+            <div class="network-line" style="top: 60%; right: 10%; width: 250px; transform: rotate(-30deg);"></div>
+            <div class="network-line" style="bottom: 30%; left: 20%; width: 180px; transform: rotate(15deg);"></div>
+        </div>
+
+        <!-- Floating Elements -->
+        <div class="floating-element">📚</div>
+        <div class="floating-element">🔬</div>
+        <div class="floating-element">🌱</div>
+        <div class="floating-element">⚙️</div>
+
+        <div class="cover-content">
+            <div class="cover-title">
+                <span class="the">Welcome To The</span>
+                <span class="alpha">ALPHA</span>NAUT<br>
+                ORIENTATION
+            </div>
+
+            <div class="alpha-logo-large">
+                <div class="alpha-circle">
+                    <div class="pillar-icon">📚</div>
+                    <div class="pillar-icon">⚛️</div>
+                    <div class="pillar-icon">🌱</div>
+                    <div class="alpha-letter">α</div>
+                </div>
+            </div>
+
+            <div class="cover-subtitle">A knowledge infrastructure project</div>
+            <div class="cover-version">v0.5</div>
+            <div class="cover-org">AlphaX</div>
+            
+            <button class="start-button" onclick="scrollToSection('you-are-here')">
+                BEGIN ORIENTATION →
+            </button>
+        </div>
+    </section>
+
+    <!-- You're Here Section -->
+    <section id="you-are-here" class="content-section">
+        <div class="section-header">
+            <div class="section-number"></div>
+            <div class="section-title-main">YOU'RE HERE</div>
+                    </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">💡</div>
+                <div class="card-title">The One-Sentence Truth</div>
+                <div class="card-text">
+                    AlphaX is a Syrian research collective that translates global science into Arabic, 
+                    conducts internationally published research, and trains the next generation of researchers, creating 
+                    a self-reinforcing knowledge ecosystem.
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🎯</div>
+                <div class="card-title">The Real Story</div>
+                <div class="card-text">
+                    You didn't join a student club. You joined a knowledge infrastructure project that happens to be run by students.
+                    Here's what that means: We make knowledge accessible, create original knowledge, and build capacity.
+                </div>
+            </div>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">🌍</div>
+                <div class="card-title">We Make Knowledge Accessible</div>
+                <div class="card-text">
+                    Most breakthrough research is in English. Syrian students struggle not from lack of ability, 
+                    but from language barriers. We translate cutting-edge papers into Arabic, not as charity, 
+                    but as infrastructure. Language shouldn't determine intellectual destiny.
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🔬</div>
+                <div class="card-title">We Create Original Knowledge</div>
+                <div class="card-text">
+                    We're not just translators. We conduct research, 
+                    build tools. Syrian minds belong at the table of global science, 
+                    contributing, not just observing.
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🌱</div>
+                <div class="card-title">We Build Capacity</div>
+                <div class="card-text">
+                    Every skill we learn, we teach. Every researcher we train becomes a mentor. 
+                    Today's junior Alphanaut is tomorrow's Navigator. This compounds across generations.
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 60px 0;">
+            <div class="cycle-diagram">
+                <div class="cycle-center">THE<br>CYCLE</div>
+                <div class="cycle-node">TRANSLATE<br>Research</div>
+                <div class="cycle-node">LEARN<br>Methods</div>
+                <div class="cycle-node">CONDUCT<br>Research</div>
+                <div class="cycle-node">CREATE<br>Knowledge</div>
+            </div>
+            <div class="cycle-explanation">
+                <p class="cycle-text">
+                    Each pillar strengthens the others. Translation builds research literacy. 
+                    Research creates knowledge to translate. Training ensures the cycle continues. 
+                    This is how infrastructure grows exponentially.
+                </p>
+            </div>
+        </div>
+
+        <div class="why-you-matter-section">
+            <h3 class="why-you-matter-title">Why You Matter</h3>
+            <div class="why-you-matter-content">
+                Syria has lost infrastructure, funding, opportunities.<br>
+                But it hasn't lost brilliant minds.<br><br>
+                <strong>That's you.</strong>
+            </div>
+            <div class="why-you-matter-subtitle">Welcome to the frontier.</div>
+        </div>
+    </section>
+
+    <!-- Who You Are Section -->
+    <section id="who-you-are" class="content-section">
+        <div class="section-header">
+            <div class="section-number"></div>
+            <div class="section-title-main">WHO YOU ARE NOW</div>
+            <div class="section-subtitle">Your role and path in AlphaX</div>
+        </div>
+
+        <div class="two-column">
+            <div class="column">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <div style="font-size: 48px; margin-bottom: 10px;">🚀</div>
+                    <div style="font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; color: var(--cyan);">
+                        Alphanaut
+                    </div>
+                </div>
+                
+                <p style="font-style: italic; color: var(--cyan); text-align: center; margin-bottom: 20px;">
+                    Like astronauts explore space, Alphanauts explore knowledge frontiers.
+                </p>
+                
+                <h4 style="color: var(--cyan); margin-top: 25px; margin-bottom: 10px;">What that means:</h4>
+                <ul class="checklist">
+                    <li>You're an explorer of the intersection between global science and local impact</li>
+                    <li>You contribute to translation, research, or training initiatives</li>
+                    <li>You're part of a community building Syrian research capacity</li>
+                    <li>You showed up, that already sets you apart</li>
+                </ul>
+
+                <h4 style="color: var(--cyan); margin-top: 25px; margin-bottom: 10px;">What's expected:</h4>
+                <ul class="checklist">
+                    <li><strong>Time:</strong> ~6-10 hours/week (flexible around your life)</li>
+                    <li><strong>Participation:</strong> Active in your work area, present in meetings</li>
+                    <li><strong>Mindset:</strong> Ask questions, help others, communicate challenges</li>
+                    <li><strong>Growth:</strong> Mistakes are data, not failures</li>
+                </ul>
+
+                <h4 style="color: var(--cyan); margin-top: 25px; margin-bottom: 10px;">What you get:</h4>
+                <ul class="checklist">
+                    <li>Training in research methods, academic writing, technical skills</li>
+                    <li>Your name on published work (papers, translations, tools)</li>
+                    <li>Mentorship from published researchers</li>
+                    <li>Community of ambitious, talented peers</li>
+                </ul>
+            </div>
+
+            <div class="column">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <div style="font-size: 48px; margin-bottom: 10px;">🧭</div>
+                    <div style="font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; color: var(--cyan);">
+                        Navigator
+                    </div>
+                </div>
+                
+                <p style="text-align: center; margin-bottom: 30px;">
+                    Experienced Alphanauts who guide teams and mentor new members. 
+                    They've proven themselves through contribution, developed expertise, 
+                    and taken on the responsibility of helping others succeed.
+                </p>
+
+                <div style="background: rgba(0, 180, 216, 0.1); padding: 20px; border-radius: 8px; margin: 25px 0; border-left: 4px solid var(--cyan);">
+                    <h4 style="color: var(--cyan); margin-bottom: 15px; text-align: center;">The Path:</h4>
+                    <div style="text-align: center; font-size: 15px; line-height: 2;">
+                        Contribute consistently<br>
+                        ↓<br>
+                        Develop expertise<br>
+                        ↓<br>
+                        Mentor others<br>
+                        ↓<br>
+                        Take leadership<br>
+                        ↓<br>
+                        <strong style="color: var(--cyan);">Navigator</strong>
+                    </div>
+                </div>
+
+                <p style="font-style: italic; margin-top: 25px; text-align: center;">
+                    Not everyone becomes a Navigator. That's fine. AlphaX needs excellent 
+                    contributors at all levels. But the path is open to anyone willing to do the work.
+                </p>
+            </div>
+        </div>
+
+        <div style="margin-top: 60px;">
+            <h3 style="text-align: center; font-size: 28px; color: var(--cyan); margin-bottom: 30px;">
+                How Work Gets Organized
+            </h3>
+            <p style="text-align: center; margin-bottom: 40px; color: var(--light-gray);">
+                AlphaX operates through specialized teams focused on specific missions. 
+                Think of them as exploration crews, each tackling a different frontier.
+            </p>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-title">Translation & Simplification</div>
+                    <div class="card-text">Knowledge Bridge team making research accessible in Arabic</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">AI Tool Development</div>
+                    <div class="card-text">Med-AI team building healthcare solutions</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Original Research</div>
+                    <div class="card-text">Neuroscience, health tech, publishable studies</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Visual Communication</div>
+                    <div class="card-text">Creative Lab designing brand and materials</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Operations & Coordination</div>
+                    <div class="card-text">Making it all work together</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">And More</div>
+                    <div class="card-text">Stay Tuneddddddddddd!!!!!!!!!</div>
+                </div>
+            </div>
+
+            <div class="alert-box" style="margin-top: 40px; background: rgba(0, 180, 216, 0.1); border-color: var(--cyan);">
+                <div class="alert-title" style="color: var(--cyan);">
+                    <span>⚡</span>
+                    Version 0.5 Reality
+                </div>
+                <div class="alert-content">
+                    <p>
+                        We're still forming. Teams are emerging. Structure is evolving. 
+                        That means you help define what AlphaX becomes, not just following what already exists.
+                    </p>
+                    <p style="font-weight: 700; font-size: 18px; color: var(--cyan); margin-top: 15px;">
+                        Early Alphanauts don't just join teams. They build them.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Real Talk Section -->
+    <section id="real-talk" class="content-section">
+        <div class="section-header">
+            <div class="section-number"></div>
+            <div class="section-title-main">REAL TALK</div>
+            <div class="section-subtitle">Questions you're actually wondering</div>
+        </div>
+
+        <div style="margin: 40px 0;">
+            <h3 style="text-align: center; font-size: 28px; color: var(--cyan); margin-bottom: 30px;">
+                Honest Answers to Real Questions
+            </h3>
+
+            <div class="qa-item">
+                <div class="qa-question">"How much time will this actually take?"</div>
+                <div class="qa-answer">
+                    6-10 hours/week if actively contributing. Some weeks more (deadlines), 
+                    some less (between projects). We respect your other commitments, just communicate.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">"What if I don't know how to do something?"</div>
+                <div class="qa-answer">
+                    That's literally the point. AlphaX is a training ground. Nobody expects you to arrive 
+                    with all skills. Ask questions, watch tutorials, learn by doing, ask for help. 
+                    <strong style="color: var(--cyan);">Ignorance admitted is ignorance solved.</strong>
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">"What if I need to step back for exams/life?"</div>
+                <div class="qa-answer">
+                    Tell your Navigator. We get it. Just don't ghost, communicate and we'll work it out. 
+                    AlphaX will be here when you're ready.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">"How do I know if I'm doing well?"</div>
+                <div class="qa-answer">
+                    You'll get feedback in meetings. If something's off, we'll tell you kindly and early. 
+                    No surprises. No passive-aggressive silence.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">"Can I suggest new ideas/projects?"</div>
+                <div class="qa-answer">
+                    <strong style="color: var(--cyan); font-size: 18px;">YES.</strong> Bring ideas to meetings. 
+                    Best ideas come from the team, not just founders. If you see a gap, say it. 
+                    If you have a better way, propose it.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">"What if this doesn't work out for me?"</div>
+                <div class="qa-answer">
+                    No hard feelings. Better to realize early than drag it out. We'll help transition your work 
+                    and stay friends. Not everyone fits everywhere.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">"Will this actually help my career/future?"</div>
+                <div class="qa-answer">
+                    Yes, if you do the work. Publications, skills, network, outputs—all real and valuable. 
+                    But no guarantees of fame or funding. We promise growth and outputs, not viral success.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">"What makes AlphaX different from other initiatives?"</div>
+                <div class="qa-answer">
+                    <strong style="color: var(--cyan);">We actually build things.</strong> We have published 
+                    researchers leading. We focus on outputs, not just meetings and social media posts. 
+                    We ship work, not promises.
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 60px;">
+            <div class="two-column">
+                <div class="column">
+                    <h3 style="color: var(--cyan); margin-bottom: 20px; font-size: 22px; text-align: center;">DO ✅</h3>
+                    <ul class="checklist">
+                        <li>Show your work (even incomplete)</li>
+                        <li>Ask questions (even "dumb" ones)</li>
+                        <li>Take ownership of tasks</li>
+                        <li>Help others when you can</li>
+                        <li>Give and receive feedback gracefully</li>
+                        <li>Celebrate others' wins</li>
+                        <li>Communicate early when stuck</li>
+                        <li>Document your process</li>
+                        <li>Think about impact, not just tasks</li>
+                        <li>Have fun, this should be energizing</li>
+                    </ul>
+                </div>
+
+                <div class="column">
+                    <h3 style="color: #ff4444; margin-bottom: 20px; font-size: 22px; text-align: center;">DON'T ❌</h3>
+                    <ul class="checklist negative">
+                        <li>Ghost the team</li>
+                        <li>Miss deadlines without communication</li>
+                        <li>Hoard information</li>
+                        <li>Perfectionism paralysis (done > perfect)</li>
+                        <li>Take credit for others' work</li>
+                        <li>Complain without suggesting solutions</li>
+                        
+                        <li>Work in isolation—collaborate!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 60px;">
+            <h3 style="text-align: center; font-size: 28px; color: var(--cyan); margin-bottom: 30px;">
+                When Things Get Hard (Because They Will)
+            </h3>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">😰</div>
+                    <div class="card-title">Week 3 Crisis</div>
+                    <div class="card-text">
+                        Reality hits. More work than you thought. Behind on other stuff. Imposter syndrome screaming.
+                        <strong style="color: var(--cyan);">→ Normal.</strong> Talk to your Navigator. 
+                        Adjust commitment. Remember why you joined. Everyone feels this. It passes.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">😐</div>
+                    <div class="card-title">Month 2 Plateau</div>
+                    <div class="card-text">
+                        Initial excitement fades. Progress feels slow. "Does this even matter?"
+                        <strong style="color: var(--cyan);">→ Expected.</strong> Look at what you've actually created. 
+                        Talk to other Alphanauts. Building infrastructure is slow, but it compounds. Trust the process.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">💢</div>
+                    <div class="card-title">Conflict with Team</div>
+                    <div class="card-text">
+                        Disagreement on approach. Frustration with work style. Feeling unheard.
+                        <strong style="color: var(--cyan);">→ Human.</strong> Address it directly but kindly. 
+                        Talk to Navigator if needed. Conflicts happen and can be resolved. 
+                        We're building something together, not performing perfection.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">❤️</div>
+                    <div class="card-title">Personal Crisis</div>
+                    <div class="card-text">
+                        Family, health, exams, life.
+                        <strong style="color: var(--cyan);">→ Tell someone.</strong> We'll support you. 
+                        AlphaX will be here when you're ready. Your wellbeing > any project.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Code Section -->
+    <section id="the-code" class="content-section">
+        <div class="section-header">
+            <div class="section-number"></div>
+            <div class="section-title-main">THE CODE</div>
+            <div class="section-subtitle">What we stand for and how we operate</div>
+        </div>
+
+        <div style="margin: 40px 0;">
+            <h3 style="text-align: center; font-size: 28px; color: var(--cyan); margin-bottom: 30px;">
+                Our Values
+            </h3>
+
+            <div class="values-grid">
+                <div class="value-pillar">
+                    <div class="value-name">Excellence</div>
+                    <div class="value-desc">
+                        We don't do things halfway<br>
+                        If we can't do it well, we don't do it<br>
+                        We compete with international standards
+                    </div>
+                </div>
+
+                <div class="value-pillar">
+                    <div class="value-name">Accessibility</div>
+                    <div class="value-desc">
+                        Knowledge should be free and open<br>
+                        Language shouldn't limit learning<br>
+                        Arabic is a language of science
+                    </div>
+                </div>
+
+                <div class="value-pillar">
+                    <div class="value-name">Collaboration</div>
+                    <div class="value-desc">
+                        We win together or not at all<br>
+                        Credit is shared generously<br>
+                        Best ideas come from collective intelligence
+                    </div>
+                </div>
+
+                <div class="value-pillar">
+                    <div class="value-name">Integrity</div>
+                    <div class="value-desc">
+                        Scientific rigor is non-negotiable<br>
+                        We cite sources, admit mistakes<br>
+                        Honest feedback > comfortable lies
+                    </div>
+                </div>
+
+                <div class="value-pillar">
+                    <div class="value-name">Growth</div>
+                    <div class="value-desc">
+                        Learning is the point<br>
+                        Mistakes are data, not failures<br>
+                        We invest in people's development
+                    </div>
+                </div>
+
+                <div class="value-pillar">
+                    <div class="value-name">Impact</div>
+                    <div class="value-desc">
+                        Outputs > intentions<br>
+                        Build things people actually use<br>
+                        Sustainable systems > heroic individuals
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 60px; text-align: center;">
+            <h3 style="font-size: 36px; color: var(--cyan); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 3px; font-weight: 800;">
+                The Alphanaut Code
+            </h3>
+            <p style="font-size: 18px; color: var(--light-gray); margin-bottom: 40px; font-weight: 600;">
+                Seven principles. Memorize them.
+            </p>
+
+            <!-- Clean Vertical Code List -->
+            <div style="max-width: 600px; margin: 0 auto;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 30px; margin-bottom: 40px;">
+                    <div style="width: 120px; height: 120px; background: linear-gradient(135deg, var(--navy), var(--teal)); border: 3px solid var(--cyan); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(0, 180, 216, 0.4);">
+                        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 80px; font-weight: 800; color: var(--cyan); text-shadow: 0 0 20px rgba(0, 180, 216, 0.6);">
+                            α
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-list-vertical">
+                    <div class="code-item-vertical" style="border-left: 4px solid var(--cyan);">
+                        <div class="code-header-vertical">
+                            <span class="code-number-vertical" style="background: var(--cyan); color: var(--navy);">1</span>
+                            <span class="code-title-vertical">SHIP IT</span>
+                        </div>
+                        <div class="code-desc-vertical">Done is better than perfect</div>
+                    </div>
+
+                    <div class="code-item-vertical" style="border-left: 4px solid var(--gold);">
+                        <div class="code-header-vertical">
+                            <span class="code-number-vertical" style="background: var(--gold); color: var(--navy);">2</span>
+                            <span class="code-title-vertical">ASK LOUDLY</span>
+                        </div>
+                        <div class="code-desc-vertical">Questions help everyone</div>
+                    </div>
+
+                    <div class="code-item-vertical" style="border-left: 4px solid var(--purple);">
+                        <div class="code-header-vertical">
+                            <span class="code-number-vertical" style="background: var(--purple); color: var(--white);">3</span>
+                            <span class="code-title-vertical">OWN YOUR WORK</span>
+                        </div>
+                        <div class="code-desc-vertical">Take pride, take responsibility</div>
+                    </div>
+
+                    <div class="code-item-vertical" style="border-left: 4px solid var(--orange);">
+                        <div class="code-header-vertical">
+                            <span class="code-number-vertical" style="background: var(--orange); color: var(--white);">4</span>
+                            <span class="code-title-vertical">LIFT OTHERS</span>
+                        </div>
+                        <div class="code-desc-vertical">Success is collective</div>
+                    </div>
+
+                    <div class="code-item-vertical" style="border-left: 4px solid var(--teal);">
+                        <div class="code-header-vertical">
+                            <span class="code-number-vertical" style="background: var(--teal); color: var(--white);">5</span>
+                            <span class="code-title-vertical">STAY CURIOUS</span>
+                        </div>
+                        <div class="code-desc-vertical">Never stop learning</div>
+                    </div>
+
+                    <div class="code-item-vertical" style="border-left: 4px solid var(--light-gray);">
+                        <div class="code-header-vertical">
+                            <span class="code-number-vertical" style="background: var(--light-gray); color: var(--dark);">6</span>
+                            <span class="code-title-vertical">BE KIND</span>
+                        </div>
+                        <div class="code-desc-vertical">Brilliance without empathy is just noise</div>
+                    </div>
+
+                    <div class="code-item-vertical" style="border-left: 4px solid var(--navy);">
+                        <div class="code-header-vertical">
+                            <span class="code-number-vertical" style="background: var(--navy); color: var(--cyan);">7</span>
+                            <span class="code-title-vertical">THINK LONG-TERM</span>
+                        </div>
+                        <div class="code-desc-vertical">We're building infrastructure, not chasing trends</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 60px;">
+            <h3 style="text-align: center; font-size: 28px; color: var(--cyan); margin-bottom: 30px;">
+                How Decisions Get Made
+            </h3>
+
+            <div style="text-align: center; margin-bottom: 40px;">
+                <div class="decision-flow">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-title">BIG DECISIONS</div>
+                        <div class="step-desc">AlphaX direction</div>
+                        <div class="step-process">Leadership → Navigators → Team input → Co-Founders decide</div>
+                    </div>
+                    
+                    <div class="flow-arrow">↓</div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">MEDIUM DECISIONS</div>
+                        <div class="step-desc">Team-level</div>
+                        <div class="step-process">Navigator consults team, makes call</div>
+                    </div>
+                    
+                    <div class="flow-arrow">↓</div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">SMALL DECISIONS</div>
+                        <div class="step-desc">Daily work</div>
+                        <div class="step-process">You decide and inform Navigator</div>
+                    </div>
+                </div>
+
+                <p style="margin-top: 30px; color: var(--light-gray);">
+                    <strong style="color: var(--cyan);">The culture:</strong> We listen to everyone, 
+                    but decision-making has clear ownership. This avoids endless debates while respecting input.
+                </p>
+            </div>
+        </div>
+
+        <div style="margin-top: 80px;">
+            <div class="alert-box">
+                <div class="alert-title">
+                    <span>⚠️</span>
+                    What We Don't Tolerate
+                </div>
+                <div class="alert-content">
+                    <p><strong>Hard lines:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                        <li>Plagiarism or academic dishonesty</li>
+                        <li>Taking credit for others' work</li>
+                        <li>Harassment or discrimination of any kind</li>
+                        <li>Sharing confidential information</li>
+                        <li>Consistent ghosting without communication</li>
+                        <li>Undermining team or spreading negativity</li>
+                    </ul>
+                    <p style="margin-top: 20px;"><strong>Consequence:</strong> Conversation → Warning → Removal if needed</p>
+                    <p style="margin-top: 15px; color: var(--cyan);">
+                        <strong>Culture:</strong> We're understanding and flexible about mistakes and challenges. 
+                        But we protect the team's integrity, safety, and culture. Non-negotiable.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Frontier Section -->
+    <section id="frontier" class="final-section">
+        <!-- Floating Elements for Final Section -->
+        <div class="final-floating">🚀</div>
+        <div class="final-floating">🌟</div>
+        <div class="final-floating">📚</div>
+        <div class="final-floating">🔬</div>
+        <div class="final-floating">🌱</div>
+        <div class="final-floating">⚡</div>
+
+        <div class="final-content">
+            <div class="section-number"></div>
+            <div class="final-title">SEE YOU AT<br>THE FRONTIER</div>
+            
+            <div class="final-subtitle">Your journey begins now</div>
+            
+            <div style="margin: 40px 0;">
+                <div style="background: linear-gradient(135deg, rgba(0, 180, 216, 0.1), rgba(255, 215, 0, 0.05)); border: 2px solid var(--cyan); border-radius: 20px; padding: 40px; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 180, 216, 0.2);">
+                    <div style="position: absolute; top: -10px; left: -10px; width: 20px; height: 20px; background: var(--cyan); border-radius: 50%; opacity: 0.3;"></div>
+                    <div style="position: absolute; bottom: -10px; right: -10px; width: 30px; height: 30px; background: var(--gold); border-radius: 50%; opacity: 0.2;"></div>
+                    
+                    <h3 style="font-size: 36px; color: var(--cyan); margin-bottom: 15px; text-align: center; text-transform: uppercase; letter-spacing: 2px; position: relative; z-index: 2;">
+                        You Made It
+                    </h3>
+                    <p style="font-size: 22px; font-weight: 700; text-align: center; color: var(--white); margin-bottom: 10px; position: relative; z-index: 2;">
+                        You read this whole thing.
+                    </p>
+                    <p style="font-size: 18px; font-weight: 600; text-align: center; color: var(--light-gray); margin-bottom: 30px; position: relative; z-index: 2;">
+                        That means something.
+                    </p>
+                    
+                    <div style="background: rgba(0, 180, 216, 0.1); border-left: 4px solid var(--cyan); padding: 20px; border-radius: 4px; position: relative; z-index: 2;">
+                        <p style="font-size: 18px; line-height: 1.8; color: var(--light-gray); margin: 0;">
+                            Most people talk about wanting to do research, build things, make impact.<br>
+                            <span style="color: var(--cyan); font-size: 22px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: block; margin-top: 10px;">
+                                You didn't just talk—you showed up.
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin: 60px 0;">
+                <div style="background: linear-gradient(135deg, rgba(155, 89, 182, 0.1), rgba(0, 180, 216, 0.05)); border: 2px solid var(--purple); border-radius: 20px; padding: 40px; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(155, 89, 182, 0.2);">
+                    <div style="position: absolute; top: -15px; right: -15px; width: 30px; height: 30px; background: var(--purple); border-radius: 50%; opacity: 0.3;"></div>
+                    <div style="position: absolute; bottom: -15px; left: -15px; width: 25px; height: 25px; background: var(--cyan); border-radius: 50%; opacity: 0.2;"></div>
+                    
+                    <h3 style="font-size: 32px; color: var(--purple); margin-bottom: 20px; text-align: center; text-transform: uppercase; letter-spacing: 2px; position: relative; z-index: 2;">
+                        What Happens Now
+                    </h3>
+                    
+                    <div style="text-align: center; position: relative; z-index: 2;">
+                        <p style="font-size: 18px; line-height: 1.8; color: var(--light-gray); margin-bottom: 15px;">
+                            This manual will be outdated soon.<br>
+                            We'll add pages. Revise sections. Grow beyond what's written here.
+                        </p>
+                        <p style="font-size: 24px; font-weight: 800; color: var(--purple); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;">
+                            That's the point.
+                        </p>
+                        <p style="font-size: 18px; line-height: 1.8; color: var(--light-gray); margin-bottom: 20px;">
+                            AlphaX evolves as Alphanauts shape it.<br>
+                            Version 0.5 is the beginning, not the blueprint.
+                        </p>
+                        <p style="font-size: 22px; font-weight: 700; color: var(--cyan); text-align: center; line-height: 1.6; position: relative; z-index: 2;">
+                            Early Alphanauts—that's you—don't just follow the manual.<br>
+                            <span style="color: var(--gold); font-size: 24px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: block; margin-top: 10px; background: linear-gradient(135deg, var(--gold), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                                You write the next chapters.
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin: 60px 0;">
+                <h3 style="font-size: 28px; color: var(--cyan); margin-bottom: 20px; text-align: center;">
+                    Your Mission Field
+                </h3>
+                <div class="mission-cards">
+                    <div class="mission-card">
+                        <div class="mission-icon">🎯</div>
+                        <div class="mission-title">Find Your Team</div>
+                        <div class="mission-desc">
+                            Discover where your skills and interests align with AlphaX's mission. 
+                            Translation, research, development, or operations—your contribution matters.
+                        </div>
+                    </div>
+                    <div class="mission-card">
+                        <div class="mission-icon">🚀</div>
+                        <div class="mission-title">Contribute</div>
+                        <div class="mission-desc">
+                            Start small, think big. Every translation, every line of code, every research insight 
+                            builds our collective knowledge infrastructure.
+                        </div>
+                    </div>
+                    <div class="mission-card">
+                        <div class="mission-icon">🌱</div>
+                        <div class="mission-title">Grow</div>
+                        <div class="mission-desc">
+                            Learn from published researchers, collaborate with brilliant peers, 
+                            and develop skills that open doors beyond Syria.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <div class="final-cta">
+                <div class="final-message">Your Signature Moment</div>
+                <div class="final-quote">
+                    "I am among those who think that science has great beauty." 
+                    <br>Marie Curie<br>
+                    You're not just joining a project. You're becoming part of a movement that's 
+                    rebuilding Syrian research capacity from the ground up. Your contribution, 
+                    no matter how small it seems, is a brick in this new foundation.
+                </div>
+            </div>
+
+            <div class="signature-line">
+                <div class="signature-box">
+                    <div class="signature-label">
+                        <strong>YOUR MISSION STARTS NOW</strong><br>
+                        I commit to contributing to AlphaX and becoming part of the knowledge infrastructure.
+                    </div>
+                    <div class="signature-name" contenteditable="true">
+                        Name: _________________________________
+                    </div>
+                    <div class="signature-name" contenteditable="true">
+                        Alphanaut ID: AX-2025-_________________
+                    </div>
+                    <div class="signature-name" contenteditable="true">
+                        Personal commitments: __________________
+                    </div>
+                    <div class="signature-date">
+                        Signature: _________________ Date: _______
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 60px; text-align: center;">
+                <p style="font-size: 18px; font-style: italic; color: var(--light-gray);">
+                    Your name might not be on this version of the manual.<br>
+                    But it will be in the story we write together.
+                </p>
+                <p style="font-size: 32px; font-weight: 700; color: var(--cyan); margin-top: 40px;">
+                    Welcome, Alphanaut.
+                </p>
+                <div class="final-signature">
+                    AlphaX Co-Founders & The Alphanaut Community
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Scroll Progress
+        window.addEventListener('scroll', function() {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        });
+
+        // Navigation Active State
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-page');
+
+        window.addEventListener('scroll', function() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth Scroll Function
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Navigation Clicks
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = this.getAttribute('href').substring(1);
+                scrollToSection(target);
+            });
+        });
+
+        // Generate random stars
+        function generateStars() {
+            const starsContainer = document.querySelector('.stars');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Initialize
+        window.addEventListener('load', function() {
+            generateStars();
+        });
+    </script>
+</body>
+</html>
