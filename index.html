@@ -51,7 +51,7 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(10, 36, 99, 0.95);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             padding: 15px 30px;
             z-index: 999;
@@ -71,10 +71,21 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: 24px;
             font-weight: 700;
-            color: var(--white);
+            color: var(--dark);
             display: flex;
             align-items: center;
             gap: 15px;
+        }
+
+        .site-logo {
+            height: 50px;
+            width: auto;
+            display: block;
+        }
+
+        .logo-link {
+            text-decoration: none;
+            display: inline-block;
         }
 
         .nav-logo .alpha {
@@ -2542,8 +2553,10 @@
     <div class="nav-bar">
         <div class="nav-content">
             <div class="nav-logo">
-                <span >AlphaX</span>
-                
+                <a href="#" class="logo-link">
+                    <img src="Alphax-01.png" alt="AlphaX Logo" class="site-logo">
+                </a>
+               
             </div>
             <div class="nav-pages">
                 <a href="#cover" class="nav-page active">Cover</a>
@@ -2595,13 +2608,17 @@
                     <div class="pillar-icon">📚</div>
                     <div class="pillar-icon">⚛️</div>
                     <div class="pillar-icon">🌱</div>
-                    <div class="alpha-letter">α</div>
+                    <div class="alpha-letter">
+                        <span style="font-size: 120px; font-weight: 700; color: var(--cyan); text-shadow: 0 0 40px rgba(0, 180, 216, 0.6);">αX</span>
+                    </div>
                 </div>
             </div>
 
             <div class="cover-subtitle">A knowledge infrastructure project</div>
             <div class="cover-version">v0.5</div>
-            <div class="cover-org">AlphaX</div>
+            <div class="cover-org"><a href="#" class="logo-link">
+                    <img src="Alphax-01.png" alt="AlphaX Logo" class="site-logo">
+                </a></div>
             
             <button class="start-button" onclick="scrollToSection('you-are-here')">
                 BEGIN ORIENTATION →
@@ -3080,7 +3097,7 @@
                 <div style="display: flex; align-items: center; justify-content: center; gap: 30px; margin-bottom: 40px;">
                     <div style="width: 120px; height: 120px; background: linear-gradient(135deg, var(--navy), var(--teal)); border: 3px solid var(--cyan); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(0, 180, 216, 0.4);">
                         <div style="font-family: 'Space Grotesk', sans-serif; font-size: 80px; font-weight: 800; color: var(--cyan); text-shadow: 0 0 20px rgba(0, 180, 216, 0.6);">
-                            α
+                            αX
                         </div>
                     </div>
                 </div>
@@ -3361,8 +3378,14 @@
                 <div class="final-signature">
                     AlphaX Co-Founders & The Alphanaut Community
                 </div>
+                
             </div>
+            <div><a href="#" class="logo-link">
+                    <img src="Alphax-01.png" alt="AlphaX Logo" class="site-logo">
+                </a>
+                </div>
         </div>
+        
     </section>
 
     <script>
